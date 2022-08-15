@@ -1,0 +1,33 @@
+.main {
+  padding: 20px;
+  background-color: #fff59b;
+}
+.main__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+}
+.main__container__email {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid blue;
+  color: black;
+  background-color: white;
+}
+.main__conteiner__email-title {
+  margin: 0 20px;
+}
+
+#triangle-right {
+  width: 20px;
+  height: 20px;
+  margin: 0 20px;
+  border-top: 10px solid transparent;
+  border-left: 20px solid rgb(13, 0, 0);
+  border-bottom: 10px solid transparent;
+}

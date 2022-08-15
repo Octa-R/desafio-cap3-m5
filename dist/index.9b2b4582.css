@@ -1,0 +1,18 @@
+.nav {
+  background-color: #c4c4c4;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.nav__sent-btn, .nav__inbox-btn {
+  width: 100%;
+  max-width: 350px;
+  max-height: 65px;
+  height: 100%;
+  color: #fff;
+  background-color: #888;
+  border: 0;
+}
+
+/*# sourceMappingURL=index.9b2b4582.css.map */

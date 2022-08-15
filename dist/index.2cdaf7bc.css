@@ -1,0 +1,35 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, sans-serif;
+  font-size: 24px;
+}
+
+.screen {
+  height: 100vh;
+}
+
+.container {
+  height: 100%;
+  background-color: #222;
+  grid-template: "header" 100px
+                 "nav" 60px
+                 "main"
+                 / 1fr;
+  display: grid;
+}
+
+.buttons {
+  background-color: #c4c4c4;
+  grid-area: buttons;
+}
+
+.main-content {
+  background-color: #5a5a5a;
+  grid-area: main;
+}
+
+/*# sourceMappingURL=index.2cdaf7bc.css.map */

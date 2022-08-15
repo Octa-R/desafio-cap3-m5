@@ -1,0 +1,25 @@
+.header {
+  background-color: #020202;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.header__logo {
+  width: 20%;
+  background-color: #849fff;
+}
+
+.header__input {
+  width: 40%;
+}
+.header__btn {
+  width: 20%;
+  background-color: #393939;
+  color: azure;
+}
+
+.header__logo,
+.header__input,
+.header__btn {
+  height: 50%;
+}
