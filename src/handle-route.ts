@@ -1,5 +1,4 @@
-import { email } from "./components/email";
-import { main } from "./components/main";
+import { emailList } from "./components/inbox/email-list";
 
 export function handleRoute(route: string) {
   // console.log(route);
@@ -10,6 +9,7 @@ export function handleRoute(route: string) {
   const inboxBtn = <HTMLElement>document.querySelector(".nav__inbox-btn");
   const sentBtn = <HTMLElement>document.querySelector(".nav__sent-btn");
   const mainContainer = <HTMLElement>document.querySelector(".main__container");
+
   const handleSentRoute = () => {
     titleEl.textContent = "sent";
     mainEl.style.backgroundColor = "#FF9BB3";
@@ -22,13 +22,12 @@ export function handleRoute(route: string) {
     mainEl.style.backgroundColor = "#fff59b";
     inboxBtn.style.backgroundColor = "#393939";
     sentBtn.style.backgroundColor = "#888888";
+    emailList();
   };
 
   const showEmail = (id: string) => {
-    console.log("mostrando email");
-    titleEl.textContent = "recibidos";
+    titleEl.textContent = id;
     mainContainer.innerHTML = "";
-    mainEl.appendChild(email(id));
   };
 
   const routes = [
@@ -59,7 +58,6 @@ export function handleRoute(route: string) {
 
   for (const r of routes) {
     if (r.path.test(route)) {
-      // console.log("ruta encontrada", r);
       r.handler();
     }
   }

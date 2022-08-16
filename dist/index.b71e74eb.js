@@ -551,7 +551,7 @@ var _goTo = require("./go-to");
     });
 })();
 
-},{"./components/header":"h4YWK","./components/main":"aCKWX","./components/nav":"as4PV","./handle-route":"41l9H","./go-to":"6FOxl"}],"h4YWK":[function(require,module,exports) {
+},{"./components/header":"h4YWK","./components/nav":"as4PV","./handle-route":"41l9H","./go-to":"6FOxl","./components/main":"aCKWX"}],"h4YWK":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "header", ()=>header);
@@ -595,59 +595,25 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}],"aCKWX":[function(require,module,exports) {
+},{}],"as4PV":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "main", ()=>main);
-var _goTo = require("../go-to");
-function main(el) {
-    const mainEl = document.createElement("main");
-    mainEl.className = "main";
-    const emailsList = [
-        {
-            id: 1,
-            title: "un email"
-        },
-        {
-            id: 2,
-            title: "otro email"
-        }, 
-    ];
-    mainEl.innerHTML = `
-  <h2 class="main__container__pathname">Inbox</h2>
-  <div class="main__container">
-  </div>
+parcelHelpers.export(exports, "nav", ()=>nav);
+function nav(el) {
+    const navEl = document.createElement("nav");
+    navEl.className = "nav";
+    navEl.innerHTML = `
+    <button class="nav__inbox-btn">Inbox</button>
+    <button class="nav__sent-btn">Sent</button>
   `;
-    const mainContainer = mainEl.querySelector(".main__container");
-    for (const email of emailsList){
-        const emailEl = document.createElement("div");
-        emailEl.className = "main__container__email";
-        emailEl.id = email.id.toString();
-        emailEl.innerHTML = `
-      <div class="main__conteiner__email-title">${email.title}</div>
-      <div id="triangle-right"></div>
-    `;
-        emailEl.addEventListener("click", ()=>(0, _goTo.goTo)(location.pathname + "/" + email.id));
-        mainContainer.appendChild(emailEl);
-    }
-    el.appendChild(mainEl);
+    el.appendChild(navEl);
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../go-to":"6FOxl"}],"6FOxl":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "goTo", ()=>goTo);
-var _handleRoute = require("./handle-route");
-function goTo(path) {
-    history.pushState({}, "", path);
-    (0, _handleRoute.handleRoute)(path);
-}
-
-},{"./handle-route":"41l9H","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"41l9H":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"41l9H":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "handleRoute", ()=>handleRoute);
-var _email = require("./components/email");
+var _emailList = require("./components/inbox/email-list");
 function handleRoute(route) {
     // console.log(route);
     const titleEl = document.querySelector(".main__container__pathname");
@@ -666,12 +632,11 @@ function handleRoute(route) {
         mainEl.style.backgroundColor = "#fff59b";
         inboxBtn.style.backgroundColor = "#393939";
         sentBtn.style.backgroundColor = "#888888";
+        (0, _emailList.emailList)();
     };
     const showEmail = (id)=>{
-        console.log("mostrando email");
-        titleEl.textContent = "recibidos";
+        titleEl.textContent = id;
         mainContainer.innerHTML = "";
-        mainEl.appendChild((0, _email.email)(id));
     };
     const routes = [
         {
@@ -698,34 +663,65 @@ function handleRoute(route) {
             handler: ()=>handleSentRoute()
         }, 
     ];
-    for (const r of routes)if (r.path.test(route)) // console.log("ruta encontrada", r);
-    r.handler();
+    for (const r of routes)if (r.path.test(route)) r.handler();
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./components/email":"drPMF"}],"drPMF":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./components/inbox/email-list":"f4Vys"}],"f4Vys":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "email", ()=>email);
-function email(id) {
-    const emailEl = document.createElement("div");
-    emailEl.innerHTML = `
-    <p>email con id: ${id}</p>
-  `;
-    return emailEl;
+parcelHelpers.export(exports, "emailList", ()=>emailList);
+var _goTo = require("../../go-to");
+function emailList() {
+    const mainEl = document.createElement("main");
+    mainEl.className = "main";
+    const emailsList = [
+        {
+            id: 1,
+            title: "un email"
+        },
+        {
+            id: 2,
+            title: "otro email"
+        }, 
+    ];
+    const mainContainer = document.querySelector(".main__container");
+    console.log(mainContainer);
+    mainContainer.innerHTML = "";
+    for (const email of emailsList){
+        const emailEl = document.createElement("div");
+        emailEl.className = "main__container__email";
+        emailEl.id = email.id.toString();
+        emailEl.innerHTML = `
+      <div class="main__conteiner__email-title">${email.title}</div>
+      <div id="triangle-right"></div>
+    `;
+        emailEl.addEventListener("click", ()=>(0, _goTo.goTo)(location.pathname + "/" + email.id));
+        mainContainer.appendChild(emailEl);
+    }
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"as4PV":[function(require,module,exports) {
+},{"../../go-to":"6FOxl","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6FOxl":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "nav", ()=>nav);
-function nav(el) {
-    const navEl = document.createElement("nav");
-    navEl.className = "nav";
-    navEl.innerHTML = `
-    <button class="nav__inbox-btn">Inbox</button>
-    <button class="nav__sent-btn">Sent</button>
+parcelHelpers.export(exports, "goTo", ()=>goTo);
+var _handleRoute = require("./handle-route");
+function goTo(path) {
+    history.pushState({}, "", path);
+    (0, _handleRoute.handleRoute)(path);
+}
+
+},{"./handle-route":"41l9H","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"aCKWX":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "main", ()=>main);
+function main(el) {
+    const mainEl = document.createElement("main");
+    mainEl.className = "main";
+    mainEl.innerHTML = `
+    <h2 class="main__container__pathname">Inbox</h2>
+    <div class="main__container"></div>
   `;
-    el.appendChild(navEl);
+    el.appendChild(mainEl);
 }
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["iJYvl","h7u1C"], "h7u1C", "parcelRequire1c4a")
